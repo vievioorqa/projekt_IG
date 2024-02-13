@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dzbankobranie</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://kit.fontawesome.com/2c4349a0be.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+    <!---------------PLANSZA------------------------------>
+
+            <div class="col-8 px-5">
+                <div class="d-flex flex-row justify-content-center align-items-center pt-5">
+                    <div class="header">START</div>
+
+                    {% for field in board.fields %}
+                        {% if loop.index % 5 == 0 %}
+                            {# Start a new row after every 5 fields #}
+                            </div>
+                            <div class="d-flex flex-row justify-content-center align-items-center {% if loop.index // 10 % 2 == 1 %}flex-row-reverse{% endif %}">
+                        {% endif %}
+
+                        {% if loop.index == 1 %}
+                            <div class="field startend d-flex align-items-center justify-content-center"></div>
+                        {% elif loop.index == board.fields|length %}
+                            <div class="field startend d-flex align-items-center justify-content-center"></div>
+                        {% else %}
+                            {% if field.content_type == 'question' %}
+                                <div class="field question d-flex align-items-center justify-content-center"></div>
+                            {% elif field.content_type == 'letter' %}
+                                <div class="field letter d-flex align-items-center justify-content-center"></div>
+                            {% else %}
+                                <div class="field normal d-flex align-items-center justify-content-center"></div>
+                            {% endif %}
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <div class="header">META</div>
+                </div>
+            </div>
+
+
+
+
+        <!-----------------PUNKTY I KOSTKA-------------------------->
+
+            <div class="col-4 pt-3">
+                <div class="d-flex flex-row justify-content-center align-items-center pt-3">
+
+                    <!--------------------------- komputer ----------------------->
+                        <div class="d-flex flex-column flex-md-row gap-4 py-1 align-items-center justify-content-left">
+                          <div class="list-group">
+                            <div class="list-group-item list-group-item-action d-flex gap-3 px-3" aria-current="true">
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 header text-color">komputer</h6>
+                              </div>
+                            </div>
+                            <div class="list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                              <div class="px-3">
+                                  <i class="fa-solid fa-star fa-2xl" style="color: #f7c81d;"></i>
+                              </div>
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 text-color">{{ computer.star }}</h6>
+                              </div>
+                            </div>
+                              <div class="list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                              <div class="px-3">
+                                <i class="fa-solid fa-mug-saucer fa-2xl" style="color: #cb1a06;"></i>
+                              </div>
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 text-color">{{ computer.jug }}</h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    <!--------------------------- gracz --------------------------------------->
+                        <div class="d-flex flex-column flex-md-row gap-4 py-1 align-items-center justify-content-left">
+                          <div class="list-group">
+                            <div class="list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 header text-color">{{ player.name }}</h6>
+                              </div>
+                            </div>
+                            <div class="list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                              <div class="px-3">
+                                  <i class="fa-solid fa-star fa-2xl" style="color: #f7c81d;"></i>
+                              </div>
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 text-color">{{ player.star }}</h6>
+                              </div>
+                            </div>
+                            <div class="list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                              <div class="px-3">
+                                <i class="fa-solid fa-mug-saucer fa-2xl" style="color: #cb1a06;"></i>
+                              </div>
+                              <div class="d-flex gap-2 w-100 justify-content-between">
+                                  <h6 class="mb-0 text-color">{{ player.jug }}</h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                </div>
+
+
+
+                <!-------------------KOSTKA------------------->
+                <div class="d-flex flex-column flex-md-row gap-4 py-4 align-items-center justify-content-center">
+                    <div class="list-group list-group-item list-group-item-action d-flex gap-3 px-3 py-3" aria-current="true">
+                        {% if fields_to_move == 1 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM224 224a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                            </div>
+                        {% endif %}
+                        {% if fields_to_move == 2 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM352 352a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM128 192a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+                            </div>
+                        {% endif %}
+                        {% if fields_to_move == 3 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm64 96a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm64 128a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm128 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                            </div>
+                        {% endif %}
+                        {% if fields_to_move == 4 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm160 64a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM128 384a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM352 160a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM320 384a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+                            </div>
+                        {% endif %}
+                        {% if fields_to_move == 5 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm64 96a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM96 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM224 224a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm64-64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32 160a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                            </div>
+                        {% endif %}
+                        {% if fields_to_move == 6 %}
+                            <div class="px-3 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="96" width="84" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#b0b0b0" d="M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm160 64a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM128 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm32 64a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM320 192a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm32 64a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM320 384a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+                            </div>
+                        {% endif %}
+                    <!--------------------------- rzuć kostką --------------------------------------->
+                        <form action="{{ url_for('roll_dice') }}" method="post">
+                            <div class="d-flex mt-1 justify-content-center align-items-center">
+                                <button type="submit" class="btn btn-success">Losuj liczbę</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+body {
+    font-family: system-ui;
+    margin: 0;
+    padding: 0;
+    color: #3A3A3A;
+}
+
+.text-color{
+    color: #3A3A3A;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.player-info {
+    text-align: center;
+}
+
+.board {
+    padding: 20px;
+    height: 100vh; /* Wysokość planszy równa wysokości widoku */
+    overflow-y: auto; /* Dodanie paska przewijania, gdy plansza jest dłuższa niż widok */
+}
+
+.field {
+    border-radius: 10px;
+    width: 140px;
+    height: 70px;
+    text-align: center;
+    padding: 10px;
+    margin: 4px;
+    box-sizing: border-box;
+}
+
+.startend {
+    background-color: #D4314C;
+}
+
+.normal {
+    background-color: #C6D93B;
+}
+
+.letter {
+    background-color: #F26938;
+}
+
+.question {
+    background-color: #F2B138;
+}
+
+
+.header {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.list-group {
+  width: 100%;
+  max-width: 200px;
+  margin-inline: 1.5rem;
+}
+
+.white-text{
+    color: white;
+}
+
+
+
+/* przygotowanie do gry */
+.card {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.button-purple {
+    color: #a00ad6;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.btn-red {
+    color: #a00ad6;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.form-group {
+    margin-top: 20px;
+}
+
+.pawn-button {
+    background: none;
+    border: none; /* Usuń domyślny border */
+    padding: 0;
+    cursor: pointer;
+}
+
+.red-pawn {
+    width: 30px;
+    height: 30px;
+    background-color: #e91616;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.purple-pawn {
+    width: 30px;
+    height: 30px;
+    background-color: #8016e9;
+    border-radius: 50%;
+    margin: 10px;
+}
